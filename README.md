@@ -1,14 +1,38 @@
 # corpi
+
 fuzzing corpuses
 
-Repository map
---------------
-Some information on the pedigree of various corpi in this repo.
+## About
 
-- `bgp/basic`: Handcrafted BGP packets, one for each of the defined message types. Each of these originate from AS 10, 10.0.1.1. No IP headers.
-- `bgp/bgpd`: Corpus generated from fuzzing FRRouting's `bgpd`, in state `Established`.
-- `bgp/bird`: Corpus generated from fuzzing BIRD in state `OpenSent`.
-- `bgp`: BGP packets
-- `ospf/`: OSPF packets
-- `pim/`: PIM / IGMP packets
-- `zebra/zapi`: Corpus generated from fuzzing FRRouting's `zebra` daemon on its IPC surface, which uses the `ZAPI` protocol.
+This is a monorepo that tracks all of my fuzzing corpi for any targets I fuzz.
+
+## Repo Layout
+
+The general structure is
+
+```
+.
+├── target-1
+│   ├── subtarget-1
+│   │   ├── gen
+│   │   └── seed
+│   └── subtarget-2
+│       ├── gen
+│       └── seed
+└── target-2
+    ├── subtarget-1
+    │   ├── gen
+    │   └── seed
+    └── subtarget-2
+        ├── gen
+        └── seed
+
+```
+
+where:
+
+- `target-x` is the name of the target program
+- `subtarget-n` is the specific subsystem in the target being fuzzed
+- `seed` is the initial input corpus first used to fuzz that subtarget
+- `gen` is the generated corpus, or whatever I put in there last
+
